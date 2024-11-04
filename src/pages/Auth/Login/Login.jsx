@@ -74,13 +74,6 @@ function Login() {
                       "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
                   }}
                 >
-                {/* <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                    <h4 className="mb-6 text-4xl font-bold">
-                      We are more than just an application
-                    </h4>
-                    <p className="text-sm">Headgen AI</p>
-                  </div>
-                  */}  
                 </div>
                 {/* <!-- Right column container with background and description--> */}
                 <div className="w-full flex flex-col justify-center h-full bg-white rounded-lg shadow  md:mt-0  xl:p-0 ">

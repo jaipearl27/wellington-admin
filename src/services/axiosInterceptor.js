@@ -42,13 +42,15 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         if (loggedInUserName) {
+          // console.log('running')
           await instance.post(
             "/auth/refresh",
             { userName: loggedInUserName },
-            {
-              withCredentials: true,
-            }
+            // {
+            //   withCredentials: true,
+            // }
           );
+          console.log(originalRequest)
           return instance(originalRequest);
         } else {
           errorMessage = "Unauthorized Access";
