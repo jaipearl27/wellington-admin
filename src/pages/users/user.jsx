@@ -27,7 +27,7 @@ const Users = () => {
   }, [dispatch, page, limit]);
 
   useEffect(() => {
-    setTotalPages(users?.UserData?.totalPage)
+    setTotalPages(users?.UserData?.totalPages)
   }, [users])
 
   const handleDelete = (id) => {
