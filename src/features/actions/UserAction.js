@@ -17,3 +17,19 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+
+export const deleteUser = createAsyncThunk(
+  "deleteUser",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await instance.delete(
+        `/game/users/${payload.id}`
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response || "Something went wrong");
+    }
+  }
+);
+

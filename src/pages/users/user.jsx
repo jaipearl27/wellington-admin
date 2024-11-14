@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../features/actions/UserAction";
+import { deleteUser, getUsers } from "../../features/actions/UserAction";
 
 const StyledPagination = styled(Pagination)(({ theme }) => ({
   "& .MuiPaginationItem-root": {
@@ -15,24 +15,24 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [page, setPage] = useState(searchParams.get("page") || 1);
-  const [limit, setLimit] = useState(25)
+  const [limit, setLimit] = useState(25);
   const [totalPages, setTotalPages] = useState(1);
 
   const users = useSelector((state) => state.users);
-
   const dispatch = useDispatch();
-  useEffect(() => {
 
-    dispatch(getUsers({page, limit}));
+  useEffect(() => {
+    dispatch(getUsers({ page, limit }));
   }, [dispatch, page, limit]);
 
   useEffect(() => {
-    setTotalPages(users?.UserData?.totalPages)
-  }, [users])
+    setTotalPages(users?.UserData?.totalPages);
+  }, [users]);
 
   const handleDelete = (id) => {
-    console.log("Delete clicked for ID:", id);
-    setOpenId(null);
+    if (confirm(`Are you sure you want to delete this record?`)) {
+      dispatch(deleteUser({ id }));
+    }
   };
 
   const handlePagination = (e, p) => {
@@ -60,6 +60,9 @@ const Users = () => {
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-700 font-semibold">
+                  S.No.
+                </th>
+                <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-700 font-semibold">
                   Name
                 </th>
                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-700 font-semibold">
@@ -68,13 +71,16 @@ const Users = () => {
                 <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-700 font-semibold">
                   Image
                 </th>
+                <th className="py-2 px-4 border-b border-gray-200 text-left text-gray-700 font-semibold">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {users?.UserData?.result?.map((item, index) => (
                 <tr key={index} className="hover:bg-gray-100">
-                   <td className="py-2 px-4 border-b border-gray-200">
-                    {index+1 + ((page - 1) * limit)}
+                  <td className="py-2 px-4 border-b border-gray-200">
+                    {index + 1 + (page - 1) * limit}
                   </td>
                   <td className="py-2 px-4 border-b border-gray-200">
                     {item.name}
@@ -89,11 +95,14 @@ const Users = () => {
                       className="w-16 h-16 object-cover rounded-md border border-gray-300"
                     />
                   </td>
-                  {/* <td className="flex flex-row gap-4">
-                    <button className=" bg-slate-400 rounded-md p-2">
-                      del
+                  <td className="flex flex-row gap-4">
+                    <button
+                      className=" bg-red-500 text-white hover:bg-red-600 transition duration-300  rounded-md p-2"
+                      onClick={() => deleteUser(item?._id)}
+                    >
+                      Delete
                     </button>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>

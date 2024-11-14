@@ -29,37 +29,32 @@ const App = () => {
         {
           path: "/",
           element: <Users />,
-
         },
-   {
+        {
           path: "/users",
           element: <Users />,
-          
         },
         {
           path: "/*",
           element: <NotFound />,
         },
-
-  
       ],
     },
     {
       path: "/login",
       element: <Login />,
     },
-,
+    ,
     {
       path: "*",
       element: <NotFound />,
     },
   ]);
-  injectStore(store)
+  injectStore(store);
   return (
     <>
-        <Toaster richColors containerClassName="overflow-auto" />
-        <RouterProvider router={router} />
- 
+      <Toaster richColors containerClassName="overflow-auto" />
+      <RouterProvider router={router} />
     </>
   );
 };
