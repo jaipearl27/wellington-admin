@@ -25,7 +25,7 @@ export const deleteUser = createAsyncThunk(
       const response = await instance.delete(
         `/game/users/${payload.id}`
       );
-
+      
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response || "Something went wrong");

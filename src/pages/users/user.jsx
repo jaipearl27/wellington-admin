@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUsers } from "../../features/actions/UserAction";
+import { clearIsSuccess } from "../../features/Slices/UserSlices";
 
 const StyledPagination = styled(Pagination)(({ theme }) => ({
   "& .MuiPaginationItem-root": {
@@ -19,11 +20,17 @@ const Users = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const users = useSelector((state) => state.users);
+  const isDeleted = useSelector((state) => state.isDeleted);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers({ page, limit }));
-  }, [dispatch, page, limit]);
+    if (isDeleted) {
+      dispatch(getUsers({ page, limit }));
+      dispatch(clearIsSuccess());
+    } else {
+      dispatch(getUsers({ page, limit }));
+    }
+  }, [isDeleted, dispatch, page, limit]);
 
   useEffect(() => {
     setTotalPages(users?.UserData?.totalPages);
@@ -31,9 +38,7 @@ const Users = () => {
 
   const handleDelete = (id) => {
     if (confirm(`Are you sure you want to delete this record?`)) {
-      dispatch(deleteUser({ id })).then((res) => {
-        return dispatch(getUsers({ page, limit }));
-      });
+      dispatch(deleteUser({ id }))
     }
   };
 
