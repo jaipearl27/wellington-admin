@@ -7,7 +7,7 @@ const initialState = {
   isSuccess: false,
   UserData: [],
   errorMessage: "",
-  isdeleted: false,
+  isDeleted: false,
 };
 
 export const UserSlices = createSlice({
@@ -15,7 +15,7 @@ export const UserSlices = createSlice({
   initialState,
   reducers: {
     clearIsSuccess: (state) => {
-      (state.isSuccess = false), (state.isdeleted = false);
+      (state.isSuccess = false), (state.isDeleted = false);
     },
   },
   extraReducers: (builder) => {
@@ -42,19 +42,19 @@ export const UserSlices = createSlice({
       .addCase(deleteUser.pending, (state, action) => {
         (state.isLoading = true),
           (state.isSuccess = false),
-          (state.isdeleted = false),
+          (state.isDeleted = false),
           (state.errorMessage = "");
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         (state.isLoading = false),
           (state.isSuccess = true),
-          (state.isdeleted = true),
+          (state.isDeleted = true),
           (state.errorMessage = "");
       })
       .addCase(deleteUser.rejected, (state, action) => {
         (state.isLoading = false),
           (state.isSuccess = false),
-          (state.isdeleted = false),
+          (state.isDeleted = false),
           toast.error(action?.payload || "Something went wrong", {
             position: "top-center",
           });
