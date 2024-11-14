@@ -32,6 +32,7 @@ const Users = () => {
   const handleDelete = (id) => {
     if (confirm(`Are you sure you want to delete this record?`)) {
       dispatch(deleteUser({ id }));
+      dispatch(getUsers({ page, limit }));
     }
   };
 
@@ -95,7 +96,7 @@ const Users = () => {
                       className="w-16 h-16 object-cover rounded-md border border-gray-300"
                     />
                   </td>
-                  <td className="flex flex-row gap-4">
+                  <td className="flex flex-row items-center justify-center gap-4">
                     <button
                       className=" bg-red-500 text-white hover:bg-red-600 transition duration-300  rounded-md p-2"
                       onClick={() => handleDelete(item?._id)}
