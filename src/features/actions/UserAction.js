@@ -4,10 +4,10 @@ import { instance } from "../../services/axiosInterceptor";
 
 export const getUsers = createAsyncThunk(
   "getUsers",
-  async (_, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
       const response = await instance.get(
-        `/game/users?page=1&limit=12`
+        `/game/users?page=${payload.page}&limit=${payload.limit}`
       );
 
       return response.data;
