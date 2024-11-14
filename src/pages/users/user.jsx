@@ -24,21 +24,21 @@ const Users = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isDeleted) {
+    dispatch(getUsers({ page, limit }));
+  }, [dispatch, page, limit]);
+
+  useEffect(() => {
+    if (users?.isDeleted) {
       dispatch(getUsers({ page, limit }));
       dispatch(clearIsSuccess());
     } else {
-      dispatch(getUsers({ page, limit }));
+      setTotalPages(users?.UserData?.totalPages);
     }
-  }, [isDeleted, dispatch, page, limit]);
-
-  useEffect(() => {
-    setTotalPages(users?.UserData?.totalPages);
   }, [users]);
 
   const handleDelete = (id) => {
     if (confirm(`Are you sure you want to delete this record?`)) {
-      dispatch(deleteUser({ id }))
+      dispatch(deleteUser({ id }));
     }
   };
 
