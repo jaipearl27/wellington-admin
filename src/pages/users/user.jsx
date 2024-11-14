@@ -15,8 +15,8 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
   const [page, setPage] = useState(searchParams.get("page") || 1);
-  const [limit, setLimit] = useState(3)
-  const [totalPages, setTotalPages] = useState(25);
+  const [limit, setLimit] = useState(25)
+  const [totalPages, setTotalPages] = useState(1);
 
   const users = useSelector((state) => state.users);
 
