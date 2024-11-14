@@ -98,7 +98,7 @@ const Users = () => {
                   <td className="flex flex-row gap-4">
                     <button
                       className=" bg-red-500 text-white hover:bg-red-600 transition duration-300  rounded-md p-2"
-                      onClick={() => deleteUser(item?._id)}
+                      onClick={() => handleDelete(item?._id)}
                     >
                       Delete
                     </button>
